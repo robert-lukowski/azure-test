@@ -19,7 +19,7 @@ def main():
 
         print(f"Done")
       
-        print(f"Retrieved secret: {secret.value}")
+        print(f"Retrieved secret")
         
     except Exception as e:
         print(f"Error: {e}")
