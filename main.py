@@ -6,7 +6,7 @@ KEY_VAULT_NAME = "kv-rlukowski-002"
 KEY_VAULT_URI = f"https://{KEY_VAULT_NAME}.vault.azure.net"
 
 def main():
-    print(f"🔌 Connection with the KV")
+    print(f" Connection with the KV")
     
     
     credential = DefaultAzureCredential()
@@ -14,10 +14,15 @@ def main():
 
     try:
         secret = client.get_secret("Secret-code")
+        
+        print(f"::add-mask::{secret.value}")
+
         print(f"Done")
-        print(f"Dectet downloaded: {secret.value}")
+      
+        print(f"Retrieved secret: {secret.value}")
+        
     except Exception as e:
-        print(f"❌ error: {e}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()
