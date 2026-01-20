@@ -20,4 +20,4 @@ To run this workflow, the repository requires the following GitHub Secret:
 2. Select "Test Pipeline" from the workflows list.
 3. Click the "Run workflow" button to trigger the execution manually.
 
-Delate all
+dobra zrobione 
