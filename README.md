@@ -19,5 +19,3 @@ To run this workflow, the repository requires the following GitHub Secret:
 1. Navigate to the Actions tab.
 2. Select "Test Pipeline" from the workflows list.
 3. Click the "Run workflow" button to trigger the execution manually.
-
-Delate all
