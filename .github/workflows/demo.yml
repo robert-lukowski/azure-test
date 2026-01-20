@@ -2,8 +2,8 @@ name: Test Pipeline
 on: 
     workflow_dispatch: 
     schedule:
-      - cron: "00 10 * * 1-5"
-      - cron: "0 */6 * * *"
+      - cron: "5 10 * * 1-5"
+      - cron: "0 */3 * * *"
 
 permissions: 
     id-token: write
