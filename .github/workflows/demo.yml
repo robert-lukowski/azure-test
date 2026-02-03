@@ -2,7 +2,7 @@ name: Test Pipeline
 on: 
     workflow_dispatch: 
     schedule:
-      - cron: "15 11 * * 1-5"
+      - cron: "15 11 * * 6"
       - cron: "7 */3 * * *"
 
 permissions: 
