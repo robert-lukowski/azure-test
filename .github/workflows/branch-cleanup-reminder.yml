@@ -1,43 +1,50 @@
-name: Remind to clean up branch after PR merge
+from pathlib import Path
+
+content = """name: Remind to clean up branch after PR merge
 
 on:
-pull_request:
-types:
-- closed
+  pull_request:
+    types:
+      - closed
 
 permissions:
-pull-requests: write
-issues: write
+  pull-requests: write
+  issues: write
 
 jobs:
-branch-cleanup-reminder:
-if: github.event.pull_request.merged == true
-runs-on: ubuntu-latest
+  branch-cleanup-reminder:
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest
 
-steps:
-  - name: Add cleanup reminder comment
-    uses: actions/github-script@v7
-    with:
-      script: |
-        const branchName = context.payload.pull_request.head.ref;
+    steps:
+      - name: Add cleanup reminder comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branchName = context.payload.pull_request.head.ref;
 
-        const body = [
-          "## Branch cleanup reminder",
-          "",
-          "This PR has been merged successfully.",
-          "",
-          "Please remember to delete your source branch if it is no longer needed.",
-          "",
-          `**Source branch:** \`${branchName}\``,
-          "",
-          "If this is a long-lived testing, environment, or validation branch, it can stay.",
-          "",
-          "Thanks!"
-        ].join("\n");
+            const body = [
+              "## Branch cleanup reminder",
+              "",
+              "This PR has been merged successfully.",
+              "",
+              "Please remember to delete your source branch if it is no longer needed.",
+              "",
+              `**Source branch:** \\`${branchName}\\``,
+              "",
+              "If this is a long-lived testing, environment, or validation branch, it can stay.",
+              "",
+              "Thanks!"
+            ].join("\\n");
 
-        await github.rest.issues.createComment({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          issue_number: context.payload.pull_request.number,
-          body: body
-        });
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: body
+            });
+"""
+
+path = Path("/mnt/data/branch-cleanup-reminder.yml")
+path.write_text(content, encoding="utf-8")
+print(f"Created: {path}")
