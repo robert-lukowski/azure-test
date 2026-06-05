@@ -1,15 +1,14 @@
-from pathlib import Path
+name: Branch cleanup reminder
 
-content = """name: Remind to clean up branch after PR merge
-
-on:
+'on':
   pull_request:
     types:
       - closed
 
 permissions:
-  pull-requests: write
+  contents: read
   issues: write
+  pull-requests: write
 
 jobs:
   branch-cleanup-reminder:
@@ -30,12 +29,12 @@ jobs:
               "",
               "Please remember to delete your source branch if it is no longer needed.",
               "",
-              `**Source branch:** \\`${branchName}\\``,
+              "**Source branch:** `" + branchName + "`",
               "",
               "If this is a long-lived testing, environment, or validation branch, it can stay.",
               "",
               "Thanks!"
-            ].join("\\n");
+            ].join("\n");
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -43,8 +42,3 @@ jobs:
               issue_number: context.payload.pull_request.number,
               body: body
             });
-"""
-
-path = Path("/mnt/data/branch-cleanup-reminder.yml")
-path.write_text(content, encoding="utf-8")
-print(f"Created: {path}")
