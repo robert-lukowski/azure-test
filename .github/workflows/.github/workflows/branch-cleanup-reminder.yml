@@ -6,7 +6,6 @@ on:
       - closed
 
 permissions:
-  pull-requests: write
   issues: write
 
 jobs:
